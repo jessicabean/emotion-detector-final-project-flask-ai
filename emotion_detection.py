@@ -29,3 +29,5 @@ def emotion_detector(text_to_analyze):
     # Add dominant emotion to dict
     detected_emotions['dominant_emotion'] = dominant_emotion
     return (detected_emotions)
+
+# Making a comment to make a change
