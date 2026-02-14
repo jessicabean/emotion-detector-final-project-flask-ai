@@ -1,13 +1,11 @@
-# Import the requests library to enable POST request
+# Import the requests and json librarie
 import requests, json
-from flask import jsonify
 
-# Emotion detector function
 def emotion_detector(text_to_analyze):
     '''
-    Emotion detector using Watson NLP Emotion Predict
+    Emotion detector using Watson NLP EmotionPredict
     input: text_to_analyze (str for emotion detection)
-    output: Emotion Predict analysis of text_to_analyze in text form
+    output: EmotionPredict analysis of text_to_analyze in formatted dict
     '''
     # Make the request to the emotionPredict API
     url = 'https://sn-watson-emotion.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/EmotionPredict'
@@ -16,18 +14,13 @@ def emotion_detector(text_to_analyze):
     response = requests.post(url, json = myobj, headers=headers)
     # Convert text from response to json
     formatted_response = json.loads(response.text)
-    # Extract scores for each emotion from json
-    anger_score = formatted_response['emotionPredictions'][0]['emotion']['anger']
-    disgust_score = formatted_response['emotionPredictions'][0]['emotion']['disgust']
-    fear_score = formatted_response['emotionPredictions'][0]['emotion']['fear']
-    joy_score = formatted_response['emotionPredictions'][0]['emotion']['joy']
-    sadness_score = formatted_response['emotionPredictions'][0]['emotion']['sadness']
-    # Put the emotion scores into a dict
-    detected_emotions = {'anger': anger_score, 'disgust': disgust_score, 'fear': fear_score, 'joy': joy_score, 'sadness': sadness_score}
-    # Find the key with the highest score
-    dominant_emotion = max(detected_emotions, key=detected_emotions.get)
-    # Add dominant emotion to dict
-    detected_emotions['dominant_emotion'] = dominant_emotion
-    return (detected_emotions)
-
-# Making a comment to make a change
+    # Extract the dict with emotion scores from the text output
+    emotions = formatted_response['emotionPredictions'][0]['emotion']
+    # Find the emotion key with the highest score
+    dominant_emotion = max(emotions, key=emotions.get)
+    # Add dominant emotion to emotions dict
+    emotions['dominant_emotion'] = dominant_emotion
+    # Format with json to required output
+    formatted_emotions = json.dumps(emotions, indent=0)
+    # Note that order for for formatting to be visible in terminal, print() is required
+    return formatted_emotions
