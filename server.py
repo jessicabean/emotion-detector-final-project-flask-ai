@@ -14,6 +14,8 @@ def emo_detector():
     text_to_analyze = request.args.get('textToAnalyze')
     # Get output from emotion_detector and convert back to dict
     emotions_dict = json.loads(emotion_detector(text_to_analyze))
+    if emotions_dict[dominant_emotion] == None:
+        return "<b>Invalid text! Please try again!</b>"
     return (
         f"For the given statement, the system response is "
         f"'anger': {emotions_dict['anger']}, "
@@ -33,5 +35,5 @@ def render_index_page():
 
 # Allow app to be executed on localhost:5000
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5000, debug=True)
      
