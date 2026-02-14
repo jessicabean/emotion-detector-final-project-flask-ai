@@ -1,5 +1,5 @@
 # Import unittest and emotion_detector in order to create tests
-import unittest, json
+import unittest
 from EmotionDetection.emotion_detection import emotion_detector
 
 # Create a class using TestCase

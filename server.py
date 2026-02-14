@@ -1,6 +1,9 @@
+'''
+Creates emotion detector flask app
+'''
+
 from flask import Flask, request, render_template
 from EmotionDetection.emotion_detection import emotion_detector
-import json
 
 app = Flask(__name__)
 
@@ -12,10 +15,10 @@ def emo_detector():
     '''
     # Get text for analysis from HTML form
     text_to_analyze = request.args.get('textToAnalyze')
-    # Get output from emotion_detector 
+    # Get output from emotion_detector
     emotions_dict = emotion_detector(text_to_analyze)
-    # Provide output for improper entries 
-    if emotions_dict['dominant_emotion'] == None:
+    # Provide output for improper entries (error handling)
+    if emotions_dict['dominant_emotion'] is None:
         return "<b>Invalid text! Please try again!</b>"
     # Return the required statement incorporating the results
     return (
@@ -37,4 +40,4 @@ def render_index_page():
 
 # Allow app to be executed on localhost:5000
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000) 
+    app.run(host="0.0.0.0", port=5000)
