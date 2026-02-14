@@ -8,23 +8,23 @@ class TestEmotionDetector(unittest.TestCase):
     # json.loads converts the formatted output string back to a dict
     def test_emotion_detector(self):
         self.assertEqual(
-            json.loads(emotion_detector("I am glad this happened"))['dominant_emotion'], 
+            emotion_detector("I am glad this happened")['dominant_emotion'], 
             'joy'
             )
         self.assertEqual(
-            json.loads(emotion_detector("I am really mad about this"))['dominant_emotion'], 
+            emotion_detector("I am really mad about this")['dominant_emotion'], 
             'anger'
             )
         self.assertEqual(
-            json.loads(emotion_detector("I feel disgusted just hearing about this"))['dominant_emotion'], 
+            emotion_detector("I feel disgusted just hearing about this")['dominant_emotion'], 
             'disgust'
             )
         self.assertEqual(
-            json.loads(emotion_detector("I am so sad about this"))['dominant_emotion'], 
+            emotion_detector("I am so sad about this")['dominant_emotion'], 
             'sadness'
             )
         self.assertEqual(
-            json.loads(emotion_detector("I am really afraid this will happen"))['dominant_emotion'], 
+            emotion_detector("I am really afraid this will happen")['dominant_emotion'], 
             'fear'
             )
 
